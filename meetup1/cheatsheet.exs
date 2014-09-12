@@ -186,8 +186,9 @@ defmodule AliasExample do
   end
 end
 
-# Tail-recursive vs. non-tail-recursive
+#  non-tail-recursive vs. tail-recursive
 
+# non-tail-recursive: the stack grows
 defmodule Factorial do
   def of(0), do: 1
 
@@ -198,6 +199,7 @@ defmodule Factorial do
 end
 
 
+# tail-recursive: Erlang can optimize such a function in a such a way that the stack won't grow
 defmodule Factorial do
 
   def of(n) when n > 0 do
