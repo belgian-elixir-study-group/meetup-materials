@@ -51,8 +51,8 @@ defmodule GuessServer do
         state = %{state | winner: sender_name }
         :correct
 
-      guess < state.number  -> :less
-      true                  -> :more
+      guess < state.number  -> :your_guess_is_less_than_the_number
+      true                  -> :your_guess_is_more_than_the_number
     end
 
     send(sender_pid, result)
