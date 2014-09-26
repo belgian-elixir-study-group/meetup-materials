@@ -21,7 +21,6 @@ defmodule GuessClient do
     send {@remote_pid_name, @remote_node}, MESSAGE_YOU_SEND
   end
 
-
 end
 
 

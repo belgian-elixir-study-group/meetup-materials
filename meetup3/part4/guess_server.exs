@@ -2,7 +2,6 @@ defmodule GuessServer do
 
   @name  :guess_number_server
 
-
   def start_link(number) do
     pid = spawn_link(fn -> init(number) end)
 
