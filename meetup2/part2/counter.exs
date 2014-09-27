@@ -16,57 +16,6 @@ defmodule Counter do
 
   @doc "A simple counter showing how to manage state using processes"
 
-  @doc "Creates a new counter, initialized to 0"
-  def start do
-    spawn_link(Counter, :loop, [0] )
-  end
-
-  @doc "Increments the given counter by 1"
-  def inc(counter) do
-    send(counter,  :inc )
-  end
-
-  def dec(counter) do
-    send(counter,  :dec )
-  end
-
-
-  @doc "Returns the current value of the given counter"
-  def value(counter) do
-
-    send(counter, {self, :val})
-
-    receive do
-      val -> val
-    end
-
-  end
-
-  @doc "Destroy the given counter and return its last value"
-  def terminate(counter) do
-    send(counter, {self, :quit})
-
-    receive do
-      val -> val
-    end
-  end
-
-
-  def loop(val) do
-    receive do
-      :inc -> loop(val+1)
-
-      :dec -> loop(val-1)
-
-      {sender, :val} ->
-        send(sender, val)
-        loop(val)
-
-      {sender, :quit} ->
-        send(sender, val)
-    end
-  end
-
 end
 
 ExUnit.start
