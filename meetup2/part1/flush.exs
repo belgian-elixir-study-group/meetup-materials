@@ -6,16 +6,9 @@
 defmodule Mailbox do
 
   def flush() do
-    _flush([])
+
   end
 
-  defp _flush(acc) do
-    receive do
-      m -> _flush([ m | acc])
-    after
-      0 -> Enum.reverse acc
-    end
-  end
 
 end
 
