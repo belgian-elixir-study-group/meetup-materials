@@ -17,34 +17,34 @@ defmodule DigTheMacrosTest do
   end
 
 
-  test "print_timestamps_before_and_after_execution" do
+  # test "print_timestamps_before_and_after_execution" do
 
-    DigTheMacros.print_timestamps_before_and_after_execution do
-      a = 21 + 89
-    end
+  #   DigTheMacros.print_timestamps_before_and_after_execution do
+  #     a = 21 + 89
+  #   end
 
-    assert a == 110
-  end
+  #   assert a == 110
+  # end
 
 
-  test "simple_benchmark" do
+  # test "simple_benchmark" do
 
-    {milliseconds, result} = DigTheMacros.simple_benchmark do
-      1..3000 |> Enum.map( &( &1 * 2)) |> Enum.shuffle |> Enum.max
-    end
+  #   {milliseconds, result} = DigTheMacros.simple_benchmark do
+  #     1..3000 |> Enum.map( &( &1 * 2)) |> Enum.shuffle |> Enum.max
+  #   end
 
-    assert result == 6000
-    assert milliseconds > 0
-  end
+  #   assert result == 6000
+  #   assert milliseconds > 0
+  # end
 
-  test "reverse_arguments" do
+  # test "reverse_arguments" do
 
-    res = DigTheMacros.reverse_arguments do
-      10 / 5
-    end
+  #   res = DigTheMacros.reverse_arguments do
+  #     10 / 5
+  #   end
 
-    assert res == 0.5
-  end
+  #   assert res == 0.5
+  # end
 
 
 
