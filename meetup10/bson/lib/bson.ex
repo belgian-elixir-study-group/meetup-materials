@@ -9,7 +9,7 @@ defmodule BSON do
   @doc "Decodes a BSON document at the start of the given stream and returns the corresponding map"
   @spec decode(binary) :: map
   def decode(stream) do
-    BSON.Decoder.decode_document(stream) |> elem(0)
+    BSON.Decoder.decode_document(stream)
   end
 
 end
