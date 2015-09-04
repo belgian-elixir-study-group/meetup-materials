@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+%html{lang:"en"}
+  %head
+    %meta{ charset: "utf-8"}
+    %meta{ "http-equiv": "X-UA-Compatible" content: "IE=edge"}
+    %meta{ name: "viewport" content: "width=device-width, initial-scale=1"}
+    %meta{ name: "description" content: ""}
+    %meta{ name: "author" content: ""}
+
+    %title Hello Phoenix!
+
+    -# %link{rel: "stylesheet" href: "#{static_path(@conn, "/css/app.css")}" }
+
+    <link rel="stylesheet" href="<%= static_path @conn, "/css/app.css" %>">
+
+  %body
+    .container{role: "main"}
+
+      %p
+        = link("Home", to: page_path(@conn, :index))
+        &nbsp;|&nbsp;
+        - if logged_in?(@conn) do
+          You are logged in, you are
+          &nbsp;
+          = @current_user.firstname
+          &nbsp;
+          = @current_user.lastname
+          &nbsp;|&nbsp;
+          = link("Logout", to: session_path(@conn, :delete, method: :delete))
+
+        - else
+          You are not logged in |&nbsp;
+          = link("Register", to: registration_path(@conn, :new))
+            &nbsp;|&nbsp;
+          = link("Login", to: session_path(@conn, :new))
+
+        &nbsp;|&nbsp;
+        = link("Page for logged in users", to: private_page_path(@conn, :index))
+
+      %p.alert.alert-info{role: "alert}"}= get_flash(@conn, :info)
+      %p.alert.alert-danger{role: "alert}"}= get_flash(@conn, :error)
+
+      = @inner
+
+    -# %script{src: "#{static_path(@conn, "/js/app.js")}" }
+
+    <script src="#{static_path(@conn, "/js/app.js")}" ></script>
+
+    %script
+      require("web/static/js/app").App.run()
