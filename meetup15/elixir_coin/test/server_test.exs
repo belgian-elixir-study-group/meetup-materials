@@ -1,11 +1,13 @@
 defmodule ElixirCoin.ServerTest do
   use ExUnit.Case
 
-  alias ElixirCoin.{Supervisor, Server}
+  alias ElixirCoin.{Server, EventManager, Dispenser}
 
   setup do
     secret = "Serun+u"
-    {:ok, _} = Supervisor.start_link(secret: secret)
+    {:ok, _} = EventManager.start_link
+    {:ok, _} = Dispenser.start_link
+    {:ok, _} = Server.start_link(secret: secret)
     {:ok, %{secret: secret, server: ElixirCoin.Server}}
   end
 

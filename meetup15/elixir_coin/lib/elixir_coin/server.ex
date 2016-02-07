@@ -1,8 +1,7 @@
 defmodule ElixirCoin.Server do
   use GenServer
 
-  alias ElixirCoin.Miners
-  alias ElixirCoin.Dispenser
+  alias ElixirCoin.{Miners, Dispenser, EventManager}
 
   defmodule State do
     defstruct secret: nil,
@@ -57,6 +56,7 @@ defmodule ElixirCoin.Server do
   def handle_call({:hello, name}, _from, state) do
     case Miners.register(state.miners, name) do
       {:ok, miners} ->
+        broadcast_event({:miner_registered, name})
         {:reply, {:ok, state.secret, next_unit_of_work(state)}, %{state | miners: miners}}
       error ->
         {:reply, error, state}
@@ -68,6 +68,7 @@ defmodule ElixirCoin.Server do
     if ElixirCoin.valid?(state.secret, x) do
       {:ok, miners} = Miners.new_coin(state.miners, name)
       {:ok, count} = Miners.coins_mined(miners, name)
+      broadcast_event({:coin_mined, name, x})
       {:reply, {:ok, count}, %{state | miners: miners, wallet: [x|state.wallet]}}
     else
       {:reply, {:error, "verification failed"}, state}
@@ -87,11 +88,20 @@ defmodule ElixirCoin.Server do
   end
 
   def handle_cast({:workload, new_workload}, state) when new_workload > 0 do
+    broadcast_event({:workload_changed, state.workload, new_workload})
     {:noreply, %{state | workload: new_workload}}
   end
 
+  #
+  # Helpers
+  #
+
   defp next_unit_of_work(%{workload: workload}) do
     Dispenser.take(workload)
+  end
+
+  defp broadcast_event(event) do
+    GenEvent.notify(EventManager, event)
   end
 
 end

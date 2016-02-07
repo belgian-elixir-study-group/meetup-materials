@@ -7,6 +7,7 @@ defmodule ElixirCoin.Supervisor do
 
   def init(args) do
     children = [
+      worker(ElixirCoin.EventManager, []),
       worker(ElixirCoin.Dispenser, []),
       worker(ElixirCoin.Server, [[secret: Keyword.fetch!(args, :secret)]])
     ]
