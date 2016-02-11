@@ -40,7 +40,7 @@ The flow for miners is fairly simple:
 
 ## Client-Server Protocol
 
-**The following messages can be sent and received using the public API in the `ElixirCoin.Server` module.**
+The following messages can be sent and received using the **public API** of the `ElixirCoin.Server` module.
 
 ### Miner Registration
 
