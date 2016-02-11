@@ -24,7 +24,7 @@ The server is in charge of:
 
 The distributed unit of work is either:
 
-- an single integer to mine
+- a single integer to mine
 - a pair `{i, j}` of integers defining an inclusive positive integer range [i,j] to mine
 
 The type and size of the unit workload (workload) **may change at any time**, your worker must be able to deal with it.
