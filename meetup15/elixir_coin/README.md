@@ -46,13 +46,13 @@ The following messages can be sent and received using the **public API** of the 
 
 #### Request
 
-```
+```Elixir
 {:hello, "<miner-name>"}
 ```
 
 #### Responses
 
-```
+```Elixir
 {:ok, secret, integer}
 {:ok, secret, {integer, integer}}
 {:error, message}
@@ -62,13 +62,13 @@ The following messages can be sent and received using the **public API** of the 
 
 #### Request
 
-```
+```Elixir
 {:coin, "<miner-name>", integer}
 ```
 
 #### Responses
 
-```
+```Elixir
 {:ok, count}
 {:error, message}
 ```
@@ -79,17 +79,37 @@ The following messages can be sent and received using the **public API** of the 
 
 #### Request
 
-```
+```Elixir
 {:done, "<miner-name>"}
 ```
 
 #### Responses
 
-```
+```Elixir
 {:ok, integer}
 {:ok, {integer, integer}}
 {:error, message}
 ```
+
+## Running Your Worker
+
+You will receive two important piece of information to connect to the server:
+
+* the server node name, e.g. `:"server@192.168.0.13"`
+* the cluster cookie
+
+To start the VM and join the cluster, use:
+
+`$ elixir --name "my-node-name" --cookie "some-cookie" my_worker.exs`
+
+Before you send any message to the server, make sure you connect to the server node:
+
+```Elixir
+Node.connect(:"server@192.168.0.13")
+# => true
+```
+
+You can then use the `ElixirCoin.Server` public API using the PID `{ElixirCoin.Server, server_name}`, e.g. `{ElixirCoin.Server, :"server@192.168.0.13"}`.
 
 ## Credits
 
