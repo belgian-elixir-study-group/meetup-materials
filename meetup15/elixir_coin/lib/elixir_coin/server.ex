@@ -48,7 +48,8 @@ defmodule ElixirCoin.Server do
 
   def init(args) do
     initial_state = %State{
-      secret: Keyword.fetch!(args, :secret)
+      secret: Keyword.fetch!(args, :secret),
+      workload: Keyword.fetch!(args, :initial_load)
     }
     {:ok, initial_state}
   end

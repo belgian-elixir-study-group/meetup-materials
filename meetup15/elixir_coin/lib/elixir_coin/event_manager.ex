@@ -1,5 +1,7 @@
 defmodule ElixirCoin.EventManager do
   def start_link() do
-    GenEvent.start_link(name: __MODULE__)
+    res = GenEvent.start_link(name: __MODULE__)
+    ElixirCoin.Console.start
+    res
   end
 end
