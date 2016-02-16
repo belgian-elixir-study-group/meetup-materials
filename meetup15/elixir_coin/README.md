@@ -109,7 +109,15 @@ Node.connect(:"server@192.168.0.13")
 # => true
 ```
 
-You can then use the `ElixirCoin.Server` public API using the PID `{ElixirCoin.Server, server_name}`, e.g. `{ElixirCoin.Server, :"server@192.168.0.13"}`.
+The PID of the server is `{ElixirCoin.Server, server_name}`, e.g. `{ElixirCoin.Server, :"server@192.168.0.13"}`.
+
+You can send messages to the server using the `GenServer` module, e.g.
+
+```Elixir
+GenServer.call({ElixirCoin.Server, :"server@1.2.3.4"}, {:hello, "Alice"})
+```
+
+If you work from this codebase, you can then use the `ElixirCoin.Server` public API using the server PID.
 
 ## Credits
 
