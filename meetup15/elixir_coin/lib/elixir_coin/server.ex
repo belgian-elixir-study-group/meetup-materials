@@ -42,7 +42,7 @@ defmodule ElixirCoin.Server do
     GenServer.call(pid, :worth)
   end
 
-  def reset(pid, workload) do
+  def reset(pid, workload \\ 0) do
     GenServer.cast(pid, {:reset, workload})
   end
 
@@ -55,7 +55,7 @@ defmodule ElixirCoin.Server do
       secret: Keyword.fetch!(args, :secret),
       workload: Keyword.fetch!(args, :initial_load)
     }
-    {:ok, initial_state}
+    {:ok, initial_state, 0}
   end
 
   def handle_call({:hello, name}, _from, state) do
