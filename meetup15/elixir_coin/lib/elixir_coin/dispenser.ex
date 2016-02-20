@@ -11,4 +11,8 @@ defmodule ElixirCoin.Dispenser do
     Agent.get_and_update(__MODULE__, fn x -> {{x, x + n - 1}, x + n} end)
   end
 
+  def reset(initial_value \\ 0) do
+    Agent.get_and_update(__MODULE__, fn x -> {x, initial_value} end)
+  end
+
 end

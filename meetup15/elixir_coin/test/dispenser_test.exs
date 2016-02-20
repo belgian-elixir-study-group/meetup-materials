@@ -9,14 +9,14 @@ defmodule ElixirCoin.DispenserTest do
   end
 
   test "take 1" do
-    Agent.get_and_update(Dispenser, fn x -> {x, 0} end)
+    Dispenser.reset
     assert 0 == Dispenser.take(1)
     assert 1 == Dispenser.take(1)
     assert 2 == Dispenser.take(1)
   end
 
   test "take many" do
-    Agent.get_and_update(Dispenser, fn x -> {x, 0} end)
+    Dispenser.reset
     assert {0, 9} == Dispenser.take(10)
     assert {10, 14} == Dispenser.take(5)
   end
