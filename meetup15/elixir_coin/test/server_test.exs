@@ -5,16 +5,15 @@ defmodule ElixirCoin.ServerTest do
 
   setup do
     server = ElixirCoin.Server
-    ElixirCoin.Server.reset(server, 2)
-    Agent.get_and_update(ElixirCoin.Dispenser, fn x -> {x, 1} end)
+    ElixirCoin.Server.reset(server, 1)
+    Agent.get_and_update(ElixirCoin.Dispenser, fn x -> {x, 0} end)
     {:ok, %{server: server}}
   end
 
   test "registration", %{server: pid} do
-    # IO.inspect Server.register(pid, "Alice")
-    # assert {:ok, "lol", 0} = Server.register(pid, "Alice")
-    # assert {:ok, "lol", 1} = Server.register(pid, "Bob")
-    # assert {:error, _} = Server.register(pid, "Bob")
+    assert {:ok, "lol", 0} = Server.register(pid, "Alice")
+    assert {:ok, "lol", 1} = Server.register(pid, "Bob")
+    assert {:error, _} = Server.register(pid, "Bob")
   end
 
   # test "valid coin found", %{server: pid} do
