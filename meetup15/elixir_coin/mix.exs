@@ -17,7 +17,7 @@ defmodule ElixirCoin.Mixfile do
 
     [
       applications: [:logger],
-      mod: { ElixirCoin, [] },
+      mod: { ElixirCoin, [secret: "lol"] },
     ]
   end
 
