@@ -15,7 +15,7 @@ defmodule ElixirCoin.Server do
   #
 
   def start_link(args) do
-    GenServer.start_link(__MODULE__, args, name: __MODULE__)
+    GenServer.start_link(__MODULE__, args, name: Dict.get(args, :name, __MODULE__))
   end
 
   def register(pid, name) do
