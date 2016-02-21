@@ -15,7 +15,7 @@ defmodule ElixirCoin.Server do
   #
 
   def start_link(args) do
-    GenServer.start_link(__MODULE__, args, name: __MODULE__)
+    GenServer.start_link(__MODULE__, args, name: Dict.get(args, :name, __MODULE__))
   end
 
   def register(pid, name) do
@@ -48,9 +48,10 @@ defmodule ElixirCoin.Server do
 
   def init(args) do
     initial_state = %State{
-      secret: Keyword.fetch!(args, :secret)
+      secret: Keyword.fetch!(args, :secret),
+      workload: Keyword.fetch!(args, :initial_load)
     }
-    {:ok, initial_state}
+    {:ok, initial_state, 0}
   end
 
   def handle_call({:hello, name}, _from, state) do

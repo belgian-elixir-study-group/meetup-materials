@@ -3,12 +3,13 @@ defmodule ElixirCoin.ServerTest do
 
   alias ElixirCoin.{Server, EventManager, Dispenser}
 
-  setup do
+  setup context do
+    Dispenser.reset
+
     secret = "Serun+u"
-    {:ok, _} = EventManager.start_link
-    {:ok, _} = Dispenser.start_link
-    {:ok, _} = Server.start_link(secret: secret)
-    {:ok, %{secret: secret, server: ElixirCoin.Server}}
+    {:ok, _} = ElixirCoin.Server.start_link(secret: secret, initial_load: 1, name: context.test)
+
+    {:ok, %{secret: secret, server: context.test}}
   end
 
   test "registration", %{secret: secret, server: pid} do

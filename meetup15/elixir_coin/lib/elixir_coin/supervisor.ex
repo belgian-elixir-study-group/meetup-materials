@@ -9,7 +9,12 @@ defmodule ElixirCoin.Supervisor do
     children = [
       worker(ElixirCoin.EventManager, []),
       worker(ElixirCoin.Dispenser, []),
-      worker(ElixirCoin.Server, [[secret: Keyword.fetch!(args, :secret)]])
+      worker(ElixirCoin.Server, [
+        [
+          secret: Keyword.fetch!(args, :secret),
+          initial_load: Keyword.fetch!(args, :initial_load)
+        ]
+      ])
     ]
     supervise(children, strategy: :one_for_one)
   end
