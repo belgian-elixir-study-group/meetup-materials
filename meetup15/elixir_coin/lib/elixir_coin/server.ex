@@ -42,10 +42,6 @@ defmodule ElixirCoin.Server do
     GenServer.call(pid, :worth)
   end
 
-  def reset(pid, workload \\ 0) do
-    GenServer.cast(pid, {:reset, workload})
-  end
-
   #
   # Callbacks
   #
@@ -91,11 +87,6 @@ defmodule ElixirCoin.Server do
   def handle_call(:worth, _from, state) do
     {:reply, {:ok, Enum.count(state.wallet)}, state}
   end
-
-  def handle_cast({:reset, workload}, state) do
-    {:noreply, %{state | miners: %{}, workload: workload, wallet: []}}
-  end
-
 
   def handle_cast({:workload, new_workload}, state) when new_workload > 0 do
     broadcast_event({:workload_changed, state.workload, new_workload})
